@@ -52,13 +52,35 @@ const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, console.log(`Server Started on PORT ${PORT}`.yellow.bold));
 
+// const io = require("socket.io")(server, {
+//   pingTimeout: 60000,
+//   cors: {
+//     origin: "https://chatterbox-3.onrender.com/",
+//     // credentials: true,
+//   },
+// });
+
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "https://chatterbox-3.onrender.com/",
-    // credentials: true,
+    origin: function (origin, callback) {
+      const allowedOrigins = [
+        "https://chatterbox-3.onrender.com",
+        "https://66c8a7eb9d7767b7e1ca990f--musical-moxie-b04297.netlify.app"
+        // "https://another-allowed-origin.com" // Add more origins as needed
+      ];
+
+      // Check if the origin is in the allowed origins list
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error("Not allowed by CORS")); // Block the request
+      }
+    },
+    credentials: true, // Optional: If you need to send cookies or HTTP authentication
   },
 });
+
 
 io.on("connection", (socket) => {
   console.log("Connected to socket.io");
