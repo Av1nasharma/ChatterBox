@@ -66,7 +66,7 @@ const io = require("socket.io")(server, {
     origin: function (origin, callback) {
       const allowedOrigins = [
         "https://chatterbox-3.onrender.com",
-        "https://66c8a7eb9d7767b7e1ca990f--musical-moxie-b04297.netlify.app"
+        "https://avi-chatter-box.netlify.app/"
         // "https://another-allowed-origin.com" // Add more origins as needed
       ];
 
