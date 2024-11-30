@@ -15,7 +15,15 @@ dotenv.config();
 connectDB()
 
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  "https://chatterbox-3.onrender.com",
+  "https://avi-chatter-box.netlify.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // Include credentials if needed
+}));
 app.get('/', (req, res)=>{
     res.send("API is Running Successfully");
 })
