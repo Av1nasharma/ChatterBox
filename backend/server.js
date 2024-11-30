@@ -71,21 +71,11 @@ const server = app.listen(PORT, console.log(`Server Started on PORT ${PORT}`.yel
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: function (origin, callback) {
-      const allowedOrigins = [
-        "https://chatterbox-3.onrender.com",
-        "https://avi-chatter-box.netlify.app/"
-        // "https://another-allowed-origin.com" // Add more origins as needed
-      ];
-
-      // Check if the origin is in the allowed origins list
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true); // Allow the request
-      } else {
-        callback(new Error("Not allowed by CORS")); // Block the request
-      }
-    },
-    credentials: true, // Optional: If you need to send cookies or HTTP authentication
+    origin: [
+      "https://chatterbox-3.onrender.com",
+      "https://avi-chatter-box.netlify.app"
+    ],
+    credentials: true,
   },
 });
 
